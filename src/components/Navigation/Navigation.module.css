@@ -11,11 +11,16 @@
   flex-direction: row;
   align-items: center;
   gap: 15px;
-  font-size: 28px;
 }
 
 .link {
   color: #aebf9b;
+  font-size: 28px;
+  font-weight: 500;
+
+  &:hover {
+    transform: scale(1.04);
+  }
 }
 
 .active {

@@ -55,11 +55,13 @@ const MovieDetailsPage = () => {
         <h1 className={s.title}>{movie.original_title}</h1>
       </div>
       <div className={s.wrapper}>
-        <img
-          className={s.poster}
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.original_title}
-        />
+        <div className={s.imgWrapper}>
+          <img
+            className={s.poster}
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.original_title}
+          />
+        </div>
         <p className={s.description}>{movie.overview}</p>
       </div>
       <ul className={s.additionalInfo}>
