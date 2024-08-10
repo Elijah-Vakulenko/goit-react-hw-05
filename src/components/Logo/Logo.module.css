@@ -1,0 +1,15 @@
+.logo {
+  color: #aebf9b;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.icon {
+  size: 35px;
+}
+
+.title {
+  font-size: 35px;
+  font-weight: 700;
+}
