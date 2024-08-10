@@ -1,60 +1,59 @@
 import axios from 'axios';
 
-
-const API_KEY = "248bfb5e4964fa646278d9e472262a2f"
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmODM3N2Q2MGY1MDFjYmIzZTBlOTg2YjZmYjMyMDNiNCIsIm5iZiI6MTcyMjcwNzk5MS45OTEzMzYsInN1YiI6IjY2YWU2ZWQxYmEzNDhjMWFmOTBiNjU5OSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9wDiwsqcaGM-WpRamVYropkuBOkJSydOarAY_SXu3tY";
-const BASIC_URL = "https://api.themoviedb.org/3";
-const END_POINT_TRENDS = "/trending/movie/day";
-const END_POINT_SEARCH = "/search/movie";
-const END_POINT_ID = "/movie/";
-const END_POINT_CREDITS = "/credits";
-const END_POINT_REVIEWS = "/reviews";
+axios.defaults.baseURL = 'https://api.themoviedb.org/3';
+const API_TOKEN = "248bfb5e4964fa646278d9e472262a2f";
 
 export const settings = {
   headers: {
-    Authorization: `Bearer ${API_KEY}`,
+    Authorization: `Bearer ${API_TOKEN}`,
   },
   params: {
     query: "",
+    include_adult: false,
     language: "en-US",
     page: 1,
   },
 };
 
-export const fetchMoviesTrends = async () => {
-  const url = `${BASIC_URL}${END_POINT_TRENDS}`;
+//======================= ↓ Робимо запит на останні хітові фільми 
 
-  const { data } = await axios.get(url, settings);
-  return data.results;
+export const fetchMoviesTrends = async () => {
+
+  const { data } = await axios.get('/trending/movie/day', settings);
+  return data;
 };
 
-export const fetchMoviesSearch = async (searchQuery) => {
-  const url = `${BASIC_URL}${END_POINT_SEARCH}`;
+//======================== ↓ Робимо запит на фільми за введеною назвою у пошуку
 
-  const { data } = await axios.get(url, {
+export const fetchMoviesSearch = async (Query) => {
+
+  const { data } = await axios.get('/search/movie', {
     ...settings,
-    params: { query: searchQuery },
+    params: { query: Query },
   });
   return data.results;
 };
 
-export const fetchMoviesById = async (id) => {
-  const url = `${BASIC_URL}${END_POINT_ID}${id}`;
+//========================== ↓ Робимо запит інформаціі про фільм
 
-  const { data } = await axios.get(url, settings);
+export const fetchMovieById = async (id) => {
+
+  const { data } = await axios.get(`/movie/${id}`, settings);
   return data;
 };
 
-export const fetchMoviesByIdCredits = async (id) => {
-  const url = `${BASIC_URL}${END_POINT_ID}${id}${END_POINT_CREDITS}`;
+//========================== ↓ Робимо запит акторського складу
 
-  const { data } = await axios.get(url, settings);
-  return data;
+export const fetchCast = async (id) => {
+
+  const { data } = await axios.get(`/movie/${id}/credits`, settings);
+  return data.cast;
 };
 
-export const fetchMoviesByIdReviews = async (id) => {
-  const url = `${BASIC_URL}${END_POINT_ID}${id}${END_POINT_REVIEWS}`;
+//========================= ↓ Робимо запит відгуків про фільм
 
-  const { data } = await axios.get(url, settings);
-  return data;
+export const fetchReviews = async (id) => {
+
+  const { data } = await axios.get(`/movie/${id}/reviews`, settings);
+  return data.results;
 };
