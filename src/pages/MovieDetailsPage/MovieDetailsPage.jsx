@@ -8,11 +8,12 @@ import {
 } from 'react-router-dom';
 import { fetchMovieById } from '../../services/api';
 import s from './MovieDetailsPage.module.css';
-import { ProgressBar } from 'react-loader-spinner';
+import Loader from '../../components/Loader/Loader';
 
 const MovieDetailsPage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(true); 
   const navigate = useNavigate();
   const location = useLocation();
   const previousLocation = useRef(location.state?.from || '/movies');
@@ -20,26 +21,25 @@ const MovieDetailsPage = () => {
   useEffect(() => {
     const getMovieInfo = async () => {
       try {
-        const data = await fetchMovieById (id);
+        const data = await fetchMovieById(id);
         setMovie(data);
       } catch (error) {
         console.error('Error searching movies:', error);
+      } finally {
+        setLoading(false); 
       }
     };
 
     getMovieInfo();
   }, [id]);
 
-  if (!movie) return render(<ProgressBar
-  visible={true}
-  height="80"
-  width="250"
-  barColor="#000000"
-  borderColor="#000000"
-  ariaLabel="progress-bar-loading"
-  wrapperStyle={{}}
-  wrapperClass="loader"
-  />) ;
+  if (loading) {
+    return <Loader />; 
+  }
+
+  if (!movie) {
+    return <p>Error load the movie</p>; 
+  }
 
   return (
     <main>
@@ -52,9 +52,9 @@ const MovieDetailsPage = () => {
         Go back
       </button>
       <div>
-        <h1 className={s.titleWrapper}>{movie.original_title}</h1>
+        <h1 className={s.title}>{movie.original_title}</h1>
       </div>
-      <div className={s.imgWrapper}>
+      <div className={s.wrapper}>
         <img
           className={s.poster}
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -82,7 +82,7 @@ const MovieDetailsPage = () => {
           </Link>
         </li>
       </ul>
-      <Suspense fallback={<div>Loading subpage...</div>}>
+      <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
     </main>

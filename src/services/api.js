@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3';
-const API_TOKEN = "248bfb5e4964fa646278d9e472262a2f";
+const API_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNDhiZmI1ZTQ5NjRmYTY0NjI3OGQ5ZTQ3MjI2MmEyZiIsIm5iZiI6MTcyMjk4MzUzMi41MzI3NzMsInN1YiI6IjY2YjJhMTJjYzZlMGZhZWMxZTFkMzAwNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yRnKa1Ajo_00QBD7dihcYhxOxdGXRZwNf0INctTZf2s";
 
 export const settings = {
   headers: {

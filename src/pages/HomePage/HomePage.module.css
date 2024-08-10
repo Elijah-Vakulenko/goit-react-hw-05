@@ -1,5 +1,9 @@
-.title{
-    margin: 0 auto;
-    font-size: 50px;
-    color: #aebf9b;
+.wrapper {
+  padding-top: 20px;
+}
+
+.title {
+  text-align: center;
+  font-size: 40px;
+  color: #aebf9b;
 }

@@ -20,7 +20,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <main>
+    <main className={s.wrapper}>
       <h1 className={s.title}>Trending Movies</h1>
       <MoviesList movies={movies} />
     </main>
